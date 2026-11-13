@@ -314,11 +314,10 @@ export default function SareesPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('grid')}
-                  className={`p-1.5 rounded-lg transition-all flex items-center cursor-pointer ${
-                    viewMode === 'grid'
-                      ? 'bg-surface text-primary shadow-sm'
-                      : 'text-on-surface-variant hover:text-primary'
-                  }`}
+                  className={`p-1.5 rounded-lg transition-all flex items-center cursor-pointer ${viewMode === 'grid'
+                    ? 'bg-surface text-primary shadow-sm'
+                    : 'text-on-surface-variant hover:text-primary'
+                    }`}
                   title="Grid View"
                 >
                   <span className="material-symbols-outlined text-lg">grid_view</span>
@@ -326,11 +325,10 @@ export default function SareesPage() {
                 <button
                   type="button"
                   onClick={() => setViewMode('list')}
-                  className={`p-1.5 rounded-lg transition-all flex items-center cursor-pointer ${
-                    viewMode === 'list'
-                      ? 'bg-surface text-primary shadow-sm'
-                      : 'text-on-surface-variant hover:text-primary'
-                  }`}
+                  className={`p-1.5 rounded-lg transition-all flex items-center cursor-pointer ${viewMode === 'list'
+                    ? 'bg-surface text-primary shadow-sm'
+                    : 'text-on-surface-variant hover:text-primary'
+                    }`}
                   title="Editorial View"
                 >
                   <span className="material-symbols-outlined text-lg">view_agenda</span>
@@ -381,11 +379,10 @@ export default function SareesPage() {
                       key={tab.val}
                       type="button"
                       onClick={() => setSelectedHeritage(tab.val)}
-                      className={`font-label-sm text-xs px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-                        selectedHeritage === tab.val
-                          ? 'bg-primary text-on-primary shadow-sm font-semibold'
-                          : 'bg-surface-container text-on-surface hover:bg-surface-container-high'
-                      }`}
+                      className={`font-label-sm text-xs px-3 py-1.5 rounded-full transition-all cursor-pointer ${selectedHeritage === tab.val
+                        ? 'bg-primary text-on-primary shadow-sm font-semibold'
+                        : 'bg-surface-container text-on-surface hover:bg-surface-container-high'
+                        }`}
                     >
                       {tab.label}
                     </button>
@@ -582,16 +579,14 @@ export default function SareesPage() {
                 return (
                   <article
                     key={item.id}
-                    className={`group relative flex bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-surface-container-high ${
-                      viewMode === 'grid' ? 'flex-col' : 'flex-col sm:flex-row items-center'
-                    }`}
+                    className={`group relative flex bg-surface-container-low rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 border border-surface-container-high ${viewMode === 'grid' ? 'flex-col' : 'flex-col sm:flex-row items-center'
+                      }`}
                   >
                     <div
-                      className={`relative overflow-hidden bg-surface-container ${
-                        viewMode === 'grid'
-                          ? 'w-full aspect-[3/4]'
-                          : 'w-full sm:w-72 aspect-[3/4] shrink-0'
-                      }`}
+                      className={`relative overflow-hidden bg-surface-container ${viewMode === 'grid'
+                        ? 'w-full aspect-[3/4]'
+                        : 'w-full sm:w-72 aspect-[3/4] shrink-0'
+                        }`}
                     >
                       <img
                         src={item.image}
@@ -624,9 +619,8 @@ export default function SareesPage() {
                         aria-label="Toggle Wishlist"
                       >
                         <span
-                          className={`material-symbols-outlined text-lg ${
-                            isWish ? 'text-primary' : ''
-                          }`}
+                          className={`material-symbols-outlined text-lg ${isWish ? 'text-primary' : ''
+                            }`}
                           style={{
                             fontVariationSettings: isWish ? "'FILL' 1" : "'FILL' 0",
                           }}
@@ -714,11 +708,10 @@ export default function SareesPage() {
                             <button
                               key={swatch}
                               type="button"
-                              className={`w-5 h-5 rounded-full transition-all cursor-pointer ${
-                                idx === 0
-                                  ? 'ring-2 ring-primary ring-offset-2 ring-offset-surface-container-low'
-                                  : 'opacity-80 hover:opacity-100'
-                              }`}
+                              className={`w-5 h-5 rounded-full transition-all cursor-pointer ${idx === 0
+                                ? 'ring-2 ring-primary ring-offset-2 ring-offset-surface-container-low'
+                                : 'opacity-80 hover:opacity-100'
+                                }`}
                               style={{ backgroundColor: swatch }}
                             />
                           ))}
@@ -831,3 +824,7 @@ export default function SareesPage() {
     </div>
   );
 }
+
+
+
+
