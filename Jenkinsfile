@@ -43,3 +43,28 @@ pipeline {
     }
 }
 
+stage('Test Kubernetes Access') {
+    steps {
+        withCredentials([
+            string(
+                credentialsId: 'k8s-deploy-token',
+                variable: 'K8S_TOKEN'
+            )
+        ]) {
+            sh '''
+                set +x
+
+                RESPONSE=$(curl -sS \
+                    --output /dev/null \
+                    --write-out "%{http_code}" \
+                    --cacert /etc/jenkins/k3s/server-ca.crt \
+                    --header "Authorization: Bearer $K8S_TOKEN" \
+                    https://127.0.0.1:6443/apis/apps/v1/namespaces/default/deployments/textile-app)
+
+                echo "Kubernetes API response: $RESPONSE"
+
+                test "$RESPONSE" = "200"
+            '''
+        }
+    }
+}
