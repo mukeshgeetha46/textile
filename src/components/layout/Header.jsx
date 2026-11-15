@@ -31,7 +31,7 @@ export default function Header() {
         </div>
 
         <div className="flex-1 text-center font-label-md text-label-md tracking-wider uppercase font-medium text-[11px] sm:text-xs truncate">
-          CI/CD pipeline test
+          Festive Heirloom Edition · Complimentary Domestic Express Shipping on Orders Above ₹5,000
         </div>
 
         <div className="hidden sm:flex items-center gap-4 shrink-0">
