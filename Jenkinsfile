@@ -7,18 +7,22 @@ pipeline {
     }
 
     stages {
+
+        // 1. Checkout source code
         stage('Checkout') {
             steps {
                 echo 'Source code checked out from GitHub'
             }
         }
 
+        // 2. Build Docker image
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t textile-app:${BUILD_NUMBER} .'
             }
         }
 
+        // 3. Push Docker image to GitHub Container Registry
         stage('Push to GHCR') {
             steps {
                 withCredentials([usernamePassword(
@@ -34,12 +38,14 @@ pipeline {
                             ${IMAGE_NAME}:${BUILD_NUMBER}
 
                         docker push ${IMAGE_NAME}:${BUILD_NUMBER}
+
                         docker logout ghcr.io
                     '''
                 }
             }
         }
 
+        // 4. Test Kubernetes authentication
         stage('Test Kubernetes Access') {
             steps {
                 withCredentials([
@@ -65,6 +71,58 @@ pipeline {
                 }
             }
         }
+
+        // 5. Deploy the new image to Kubernetes
+        stage('Deploy to Kubernetes') {
+            steps {
+                withCredentials([
+                    string(
+                        credentialsId: 'k8s-deploy-token',
+                        variable: 'K8S_TOKEN'
+                    )
+                ]) {
+                    sh '''
+                        set +x
+
+                        KUBECONFIG_FILE=$(mktemp)
+                        chmod 600 "$KUBECONFIG_FILE"
+
+                        trap 'rm -f "$KUBECONFIG_FILE"' EXIT
+
+                        cat > "$KUBECONFIG_FILE" <<EOF
+apiVersion: v1
+kind: Config
+clusters:
+- cluster:
+    certificate-authority: /etc/jenkins/k3s/server-ca.crt
+    server: https://127.0.0.1:6443
+  name: k3s
+contexts:
+- context:
+    cluster: k3s
+    namespace: default
+    user: jenkins-deployer
+  name: jenkins
+current-context: jenkins
+users:
+- name: jenkins-deployer
+  user:
+    token: ${K8S_TOKEN}
+EOF
+
+                        echo "Deploying image: ${IMAGE_NAME}:${BUILD_NUMBER}"
+
+                        kubectl --kubeconfig="$KUBECONFIG_FILE" \
+                            set image deployment/textile-app \
+                            textile-app=${IMAGE_NAME}:${BUILD_NUMBER} \
+                            -n default
+
+                        kubectl --kubeconfig="$KUBECONFIG_FILE" \
+                            rollout status deployment/textile-app \
+                            -n default --timeout=120s
+                    '''
+                }
+            }
+        }
     }
 }
-
