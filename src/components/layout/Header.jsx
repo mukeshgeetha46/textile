@@ -31,7 +31,7 @@ export default function Header() {
         </div>
 
         <div className="flex-1 text-center font-label-md text-label-md tracking-wider uppercase font-medium text-[11px] sm:text-xs truncate">
-          Festive Heirloom Edition · Complimentary Domestic Express Shipping on Orders Above ₹5,000
+          CI/CD pipeline test
         </div>
 
         <div className="hidden sm:flex items-center gap-4 shrink-0">
@@ -77,10 +77,9 @@ export default function Header() {
                 key={item.path}
                 to={item.path}
                 className={({ isActive }) =>
-                  `font-label-sm text-xs uppercase tracking-wider transition-colors whitespace-nowrap ${
-                    isActive
-                      ? 'text-primary font-bold border-b-2 border-primary pb-0.5'
-                      : 'text-on-surface hover:text-primary font-medium'
+                  `font-label-sm text-xs uppercase tracking-wider transition-colors whitespace-nowrap ${isActive
+                    ? 'text-primary font-bold border-b-2 border-primary pb-0.5'
+                    : 'text-on-surface hover:text-primary font-medium'
                   }`
                 }
               >
@@ -186,10 +185,9 @@ export default function Header() {
                 to={item.path}
                 onClick={() => setMobileMenuOpen(false)}
                 className={({ isActive }) =>
-                  `px-3 py-2 rounded-lg font-label-sm text-xs uppercase tracking-wider transition-colors ${
-                    isActive
-                      ? 'bg-primary text-on-primary font-bold'
-                      : 'text-on-surface hover:bg-surface-container'
+                  `px-3 py-2 rounded-lg font-label-sm text-xs uppercase tracking-wider transition-colors ${isActive
+                    ? 'bg-primary text-on-primary font-bold'
+                    : 'text-on-surface hover:bg-surface-container'
                   }`
                 }
               >
